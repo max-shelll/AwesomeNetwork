@@ -1,0 +1,90 @@
+﻿@model AwesomeNetwork.ViewModels.Account.UserViewModel; 
+
+<div class="block-reg background-white">
+
+    <h4 class="center">@Model.User.GetFullName()</h4>
+
+    <div class="row">
+
+        <div class="main">
+            <img class="main-img" src="@Model.User.Image" />
+            <div class="center-align">
+                <form method="get" asp-controller="AccountManager" asp-action="Edit">
+                    <input class="enter_submit" type="submit" value="Редактировать" />
+                </form>
+            </div>
+        </div>
+
+
+        <div class="side">
+            <div class="lined-block">
+                <div>
+                    <label class="gray-text">Статус:</label>
+                    <label> @Model.User.Status</label>
+                </div>
+
+                <div>
+                    <label class="gray-text">Дата рождения:</label>
+                    <label> @Model.User.BirthDate.ToLongDateString()</label>
+                </div>
+
+                <div>
+                    <label class="gray-text">О себе:</label>
+                    <label> @Model.User.About</label>
+                </div>
+
+                <div>
+                    <label class="gray-text">Email:</label>
+                    <label> @Model.User.Email</label>
+                </div>
+
+            </div>
+
+            <div class="lined-block friendcontainer">
+                <label class="gray-text">Список друзей</label>
+
+                <div class="friendbox">
+                    @if (Model.Friends.Count != 0)
+                    {
+
+                        @foreach (var user in @Model.Friends)
+                        {
+                            <div class="datadiv">
+                                <div class="mrgn center-align">
+                                    <img src="@user.Image" class="ava" />
+                                </div>
+                                <div class="mrgn center-align">
+                                    @user.GetFullName()
+                                </div>
+                                <div class="mrgn center-align">
+                                    <form asp-controller="AccountManager" asp-action="Chat" asp-route-id="@user.Id" method="post">
+                                        <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                            Чат
+                                        </button>
+                                    </form>
+                                </div>
+                                <div class="mrgn center-align">
+                                    <form asp-controller="AccountManager" asp-action="DeleteFriend" asp-route-id="@user.Id" method="post">
+                                        <button type="submit" class="btn btn-sm btn-primary min-width-but">
+                                            Удалить из друзей
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    else
+                    {
+                        <div>
+                            <label> У вас пока нет друзей.</label>
+                        </div>
+                    }
+                </div>
+
+            </div>
+            </div>
+
+    </div>
+
+</div>

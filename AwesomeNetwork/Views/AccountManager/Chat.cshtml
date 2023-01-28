@@ -1,0 +1,56 @@
+﻿@model AwesomeNetwork.ViewModels.Account.ChatViewModel;
+
+    <meta http-equiv="refresh" content="5">
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.10/jquery.validate.unobtrusive.min.js"></script>
+
+    <div class="block-reg background-white">
+        <div>
+            <form method="get" asp-controller="AccountManager" asp-action="MyPage">
+                <input class="enter_submit" type="submit" value="Назад" />
+            </form>
+        </div>
+
+        <h4 class="center">Чат @Model.You.FirstName и  @Model.ToWhom.FirstName</h4>
+
+        <div class="lined-block">
+            <label class="gray-text">Сообщения</label>
+
+            @if (Model.History.Count != 0)
+            {
+
+                @foreach (var message in @Model.History)
+                {
+                    <div>
+                        <label> @message.Sender.FirstName:</label>
+                        @message.Text
+                    </div>
+                }
+            }
+            else
+            {
+                <div>
+                    <label> У вас пока нет сообщений с  @Model.ToWhom.GetFullName().</label>
+                </div>
+            }
+
+
+        </div>
+
+        <div class="lined-block">
+            <label class="gray-text">Новое сообщение</label>
+
+            <form class="frm" method="post" asp-controller="AccountManager" asp-action="NewMessage"  asp-route-id="@Model.ToWhom.Id">
+                <div asp-validation-summary="ModelOnly"></div>
+                <div>
+                    <div class="mrgn">
+                        <input asp-for="NewMessage.Text" class="form-control emojify" type="text"/>
+                    </div>
+                    <div class="center">
+                        <input class="btn_submit" type="submit" value="Отправить" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>

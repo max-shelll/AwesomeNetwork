@@ -1,0 +1,13 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using AwesomeNetwork.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<div class="righ-align">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <form method="post" asp-controller="AccountManager" asp-action="Logout">
+            <input class="enter_submit" type="submit" value="Выход" />
+        </form>
+    }
+</div>

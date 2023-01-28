@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using AwesomeNetwork.Models.Users;
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager;
+
+@model AwesomeNetwork.ViewModels.Account.MainViewModel;
+
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@if (SignInManager.IsSignedIn(User))
+{
+    //редирект
+
+}
+else
+{
+
+
+    <div class="row">
+        <div class="side">
+            <div class="center">
+                Пользуйтесь нашей самой крутой соцсетью! Регистрируйтесь всего за 2 минуты, делитесь мыслями, находите новых друзей.
+            </div>
+            <img class="main-img" src="http://pngimg.com/uploads/husky/husky_PNG19.png" />
+        </div>
+
+
+        <div class="main">
+            <partial name="Login" model="@Model.LoginView" />
+            <partial name="Register" model="@Model.RegisterView"/>
+        </div>
+
+    </div>
+
+}
